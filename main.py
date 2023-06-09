@@ -22,13 +22,23 @@ df_origin = pd.read_csv(url, dtype={'column_name': str}, low_memory=False)
 
 # Making a welcome message
 @app.get("/")
-async def mensaje_bienvenida():
+async def menu():
 
-    return {"Para acceder a la API de manera interactiva escribe '/docs' en la URL"}
+    menu = {'URL API Documentation': '/docs',
+            'URL API Funcion 1': '/cantidad/filmaciones/mes/{mes}',
+            'URL API Funcion 2': '/cantidad/filmaciones/dia/{dia}',
+            'URL API Funcion 3': '/score/titulo/{titulo}',
+            'URL API Funcion 4': '/votos/titulo/{titulo}',
+            'URL API Funcion 5': '/get/actor/{actor}',
+            'URL API Funcion 6': '/get/director/{director}',
+            'URL API Funcion 7': '/recomendations/{titulo}'
+            }
+
+    return menu
 
 
 # Function 1: returning the amount of movies in a specific month
-@app.get("/cantidad_filmaciones_mes/{mes}")
+@app.get("/cantidad/filmaciones/mes/{mes}")
 async def cantidad_filmaciones_mes(mes: str):
 
     df_origin['release_date'] = pd.to_datetime(df_origin['release_date'])
@@ -55,7 +65,7 @@ async def cantidad_filmaciones_mes(mes: str):
 
 
 # Function 2: returning the amount of movies in a specific day
-@app.get("/cantidad/filmaciones/dia/{day}")
+@app.get("/cantidad/filmaciones/dia/{dia}")
 async def cantidad_filmaciones_dia(dia: str):
     df_origin['release_date'] = pd.to_datetime(df_origin['release_date'])
 
@@ -196,7 +206,7 @@ def recomendacion(titulo):
 
 
 # Function 7: Using the recomendation model to find the most similar movies
-@app.get("/recomendations/{title}")
+@app.get("/recomendations/{titulo}")
 async def obtener_recomendacion(titulo: str):
 
     recomendaciones = recomendacion(titulo)

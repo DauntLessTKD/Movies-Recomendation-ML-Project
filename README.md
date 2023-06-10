@@ -37,9 +37,14 @@ URL/cantidad/filmaciones/dia/
 Score of a movie:
 URL/score/titulo/
 
-Votes 
+Votes obtained by a movie
+URL /votos/titulo/
 
-    'URL API Funcion 4': '/votos/titulo/{titulo}',
-            'URL API Funcion 5': '/get/actor/{actor}',
-            'URL API Funcion 6': '/get/director/{director}',
-            'URL API Funcion 7': '/recomendations/{titulo}'
+Get an Actor in our Data
+URL /get/actor/
+
+Get an Director in our Data
+URL /get/director/
+
+Get 5 similar movies recomende by our ML Model
+URL/recomendations/

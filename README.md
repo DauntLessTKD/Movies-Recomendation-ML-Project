@@ -13,3 +13,33 @@ We can see some methods and graphs, which guide us to be able to develop the rec
 
 in the File
 'main.py' is our API created with the needed documentation
+
+
+Menu:
+
+To enter in the documentation: URL/docs
+
+To use the endpoints at the end of the url , you should enter
+
+the data you want to process.
+
+
+Next to this i will put all the URL for the functions:
+
+
+
+Quantity of movies per month:  
+URL/cantidad/filmaciones/mes/
+
+Quantity of movies per month:
+URL/cantidad/filmaciones/dia/
+
+Score of a movie:
+URL/score/titulo/
+
+Votes 
+
+    'URL API Funcion 4': '/votos/titulo/{titulo}',
+            'URL API Funcion 5': '/get/actor/{actor}',
+            'URL API Funcion 6': '/get/director/{director}',
+            'URL API Funcion 7': '/recomendations/{titulo}'

@@ -14,27 +14,10 @@ app = FastAPI()
 
 
 # Making the dataframe using and url of google drive
-url = 'https://drive.google.com/file/d/1yxJ3Sm8_CLuDdcMHO5Yuh1POz7Id9lCM/view?usp=sharing'
+url = 'https://drive.google.com/file/d/1Px4Ufyb6m-o2E_4oefNyVjCrXvv2GiZQ/view?usp=sharing'
 url = 'https://drive.google.com/uc?id=' + url.split('/')[-2]
 
 df_origin = pd.read_csv(url, dtype={'column_name': str}, low_memory=False)
-
-
-# Making a welcome message
-@app.get("/")
-async def menu():
-
-    menu = {'URL API Documentation': '/docs',
-            'URL API Funcion 1': '/cantidad/filmaciones/mes/{mes}',
-            'URL API Funcion 2': '/cantidad/filmaciones/dia/{dia}',
-            'URL API Funcion 3': '/score/titulo/{titulo}',
-            'URL API Funcion 4': '/votos/titulo/{titulo}',
-            'URL API Funcion 5': '/get/actor/{actor}',
-            'URL API Funcion 6': '/get/director/{director}',
-            'URL API Funcion 7': '/recomendations/{titulo}'
-            }
-
-    return menu
 
 
 # Function 1: returning the amount of movies in a specific month

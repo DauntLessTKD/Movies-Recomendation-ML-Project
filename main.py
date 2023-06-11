@@ -137,6 +137,8 @@ async def get_actor(nombre_actor: str):
 @app.get("/get_director/{nombre_director}")
 async def get_director(nombre_director: str):
 
+    nombre_director = nombre_director.lower()
+
     peliculas_director = df_origin[df_origin['crew'].str.lower().str.contains(nombre_director, na=False)]
 
     if peliculas_director.empty:
@@ -156,9 +158,9 @@ async def get_director(nombre_director: str):
 # Filling all the empty values in the column genres
 df_origin['genres'] = df_origin['genres'].fillna('')
 
-'''
+
 # Combining two characteristics 'genres' and 'vote_average'
-df_origin['features'] = df_origin['genres'].astype(str) + ' ' + df_origin['vote_average'].astype(str)
+df_origin['features'] = df_origin['genres'].astype(str) + ' ' + df_origin['vote_average'].astype(str) + ' ' + df_origin['overview'].astype(str)
 
 # Making a TF IDF matrix for the combined characteristics
 tfidf = TfidfVectorizer()
@@ -186,7 +188,7 @@ def recomendacion(titulo):
     similar_movies_indices = similarity_scores.argsort()[0][-5:][::-1]
 
     # Finding the titles and vote_average of the most similar movies
-    peliculas_similares = df_origin.iloc[similar_movies_indices][['title', 'vote_average']].values.tolist()
+    peliculas_similares = df_origin.iloc[similar_movies_indices][['title', 'vote_average','overview']].values.tolist()
 
     # Sorting the movies using the score in a descending order
     peliculas_similares = sorted(peliculas_similares, key=lambda x: x[1], reverse=True)
@@ -205,59 +207,6 @@ async def obtener_recomendacion(titulo: str):
 
     else:
         return {"lista_recomendada": recomendaciones}
-'''
-
-
-# Combining two characteristics 'genres' and 'vote_average' and 'overview'
-df_origin['features'] = df_origin['genres'].astype(str) + ' ' + df_origin['vote_average'].astype(str) + ' ' + df_origin['overview'].astype(str)
-
-# Making a TF IDF matrix for the combined characteristics
-tfidf = TfidfVectorizer()
-tfidf_matrix = tfidf.fit_transform(df_origin['features'])
-
-# Creating a recomendation function , to use it in the API function
-def recomendacion2(titulo):
-
-    # Setting the title in lower case
-    titulo = titulo.lower()
-
-    # Filtering movies using the title
-    pelicula_seleccionada = df_origin[df_origin['title'].str.lower() == titulo]
-
-    if pelicula_seleccionada.empty:
-        return []
-
-    # Taking the index of the selected movie
-    index = pelicula_seleccionada.index[0]
-
-    # Finding the similarity between movies using combined characteristics
-    similarity_scores = cosine_similarity(tfidf_matrix[index], tfidf_matrix)
-
-    # Finding the indexes of the more similar movies
-    similar_movies_indices = similarity_scores.argsort()[0][-5:][::-1]
-
-    # Finding the titles and vote_average of the most similar movies
-    peliculas_similares = df_origin.iloc[similar_movies_indices][['title', 'vote_average','ovreview']].values.tolist()
-
-    # Sorting the movies using the score in a descending order
-    peliculas_similares = sorted(peliculas_similares, key=lambda x: x[1], reverse=True)
-
-    return peliculas_similares
-
-
-# Function 7: Using the recomendation model to find the most similar movies
-@app.get("/recomendacion2/{titulo}")
-async def obtener_recomendacion(titulo: str):
-
-    recomendaciones = recomendacion2(titulo)
-
-    if len(recomendaciones) == 0:
-        return {"Error": "Película no encontrada"}
-
-    else:
-        return {"lista_recomendada": recomendaciones}
-
-
 
 
 # Needed for reloading the API response in live time

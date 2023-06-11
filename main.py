@@ -162,7 +162,7 @@ df_origin['genres'] = df_origin['genres'].fillna('')
 
 
 # Combining three characteristics 'genres' and 'vote_average' and 'overview'
-df_origin['features'] = df_origin['genres'].astype(str) + ' ' + df_origin['vote_average'].astype(str) + ' ' + df_origin['overview'].astype(str)
+df_origin['features'] = df_origin['genres'].astype(str) + ' ' + df_origin['vote_average'].astype(str)
 
 # Making a TF IDF matrix for the combined characteristics
 tfidf = TfidfVectorizer()
@@ -189,7 +189,7 @@ def recomendacion(titulo):
     # Finding the indexes of the more similar movies
     similar_movies_indices = similarity_scores.argsort()[0][-5:][::-1]
 
-    similar_movies_indices = similar_movies_indices['title' == titulo]
+    similar_movies_indices = similar_movies_indices.pop(titulo)
 
     # Finding the titles and vote_average of the most similar movies
     peliculas_similares = df_origin.iloc[similar_movies_indices][['title', 'vote_average']].values.tolist()

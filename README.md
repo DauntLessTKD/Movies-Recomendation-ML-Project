@@ -14,7 +14,6 @@ We can see some methods and graphs, which guide us to be able to develop the rec
 in the File
 'main.py' is our API created with the needed documentation
 
-
 Menu:
 
 To enter in the documentation: URL/docs
@@ -23,27 +22,24 @@ To use the endpoints at the end of the url , you should enter
 
 the data you want to process.
 
-
 Next to this i will put all the URL for the functions:
 
-
-
-Quantity of movies per month:  URL/cantidad/filmaciones/mes/
+Quantity of movies per month:  URL/cantidad_filmaciones_mes/{mes}
 
 Quantity of movies per month:
-URL/cantidad/filmaciones/dia/
+URL/cantidad_filmaciones_dia/{dia}
 
 Score of a movie:
-URL/score/titulo/
+URL/score_titulo/{titulo}
 
 Votes obtained by a movie
-URL /votos/titulo/
+URL/votos_titulo/{titulo}
 
 Get an Actor in our Data
-URL /get/actor/
+URL/get_actor/{nombre_actor}
 
 Get an Director in our Data
-URL /get/director/
+URL /get_director/{nombre_director}
 
 Get 5 similar movies recomende by our ML Model
-URL/recomendations/
+URL/recomendacion/{titulo}

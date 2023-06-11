@@ -194,7 +194,7 @@ def recomendacion(titulo):
 
 
 # Function 7: Using the recomendation model to find the most similar movies
-@app.get("/recomendations/{titulo}")
+@app.get("/recomendacion/{titulo}")
 async def obtener_recomendacion(titulo: str):
 
     recomendaciones = recomendacion(titulo)

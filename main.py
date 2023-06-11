@@ -14,7 +14,7 @@ app = FastAPI()
 
 
 # Making the dataframe using the url of google drive
-url = 'https://drive.google.com/file/d/1Px4Ufyb6m-o2E_4oefNyVjCrXvv2GiZQ/view?usp=sharing'
+url = 'https://drive.google.com/file/d/19x_8WelyVXU1Lk60N_BMy4fl1wfPlkKS/view?usp=sharing'
 url = 'https://drive.google.com/uc?id=' + url.split('/')[-2]
 
 df_origin = pd.read_csv(url, dtype={'column_name': str}, low_memory=False)

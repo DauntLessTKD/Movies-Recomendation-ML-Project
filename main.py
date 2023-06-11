@@ -161,7 +161,7 @@ async def get_director(nombre_director: str):
 df_origin['genres'] = df_origin['genres'].fillna('')
 
 
-# Combining two characteristics 'genres' and 'vote_average'
+# Combining three characteristics 'genres' and 'vote_average' and 'overview'
 df_origin['features'] = df_origin['genres'].astype(str) + ' ' + df_origin['vote_average'].astype(str) + ' ' + df_origin['overview'].astype(str)
 
 # Making a TF IDF matrix for the combined characteristics

@@ -119,8 +119,10 @@ async def votos_titulo(titulo: str):
 @app.get("/get_actor/{nombre_actor}")
 async def get_actor(nombre_actor: str):
 
+    nombre_actor = nombre_actor.lower()
+
     # Asegúrate de que tu columna de actores esté en un formato que puedas filtrar por actor
-    peliculas_actor = df_origin[df_origin['cast'].str.contains(nombre_actor, na=False)]
+    peliculas_actor = df_origin[df_origin['cast'].str.lower().str.contains(nombre_actor, na=False)]
 
     if peliculas_actor.empty:
         return {"Error": "Actor no encontrado"}
@@ -139,7 +141,7 @@ async def get_director(nombre_director: str):
 
     nombre_director = nombre_director.lower()
 
-    peliculas_director = df_origin[df_origin['crew'].str.lower().str.contains(nombre_director)]  #, na=False)]
+    peliculas_director = df_origin[df_origin['crew'].str.lower().str.contains(nombre_director, na=False)]
 
     if peliculas_director.empty:
         return {"Error": "Director no encontrado"}
@@ -186,6 +188,8 @@ def recomendacion(titulo):
 
     # Finding the indexes of the more similar movies
     similar_movies_indices = similarity_scores.argsort()[0][-5:][::-1]
+
+    similar_movies_indices = similar_movies_indices['title' == titulo]
 
     # Finding the titles and vote_average of the most similar movies
     peliculas_similares = df_origin.iloc[similar_movies_indices][['title', 'vote_average']].values.tolist()

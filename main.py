@@ -156,6 +156,7 @@ async def get_director(nombre_director: str):
 # Filling all the empty values in the column genres
 df_origin['genres'] = df_origin['genres'].fillna('')
 
+'''
 # Combining two characteristics 'genres' and 'vote_average'
 df_origin['features'] = df_origin['genres'].astype(str) + ' ' + df_origin['vote_average'].astype(str)
 
@@ -204,7 +205,7 @@ async def obtener_recomendacion(titulo: str):
 
     else:
         return {"lista_recomendada": recomendaciones}
-
+'''
 
 
 # Combining two characteristics 'genres' and 'vote_average' and 'overview'

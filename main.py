@@ -139,7 +139,7 @@ async def get_director(nombre_director: str):
 
     nombre_director = nombre_director.lower()
 
-    peliculas_director = df_origin[df_origin['crew'].str.lower().str.contains(nombre_director, na=False)]
+    peliculas_director = df_origin[df_origin['crew'].str.lower().str.contains(nombre_director)]  #, na=False)]
 
     if peliculas_director.empty:
         return {"Error": "Director no encontrado"}
@@ -188,7 +188,7 @@ def recomendacion(titulo):
     similar_movies_indices = similarity_scores.argsort()[0][-5:][::-1]
 
     # Finding the titles and vote_average of the most similar movies
-    peliculas_similares = df_origin.iloc[similar_movies_indices][['title', 'vote_average','overview']].values.tolist()
+    peliculas_similares = df_origin.iloc[similar_movies_indices][['title', 'vote_average']].values.tolist()
 
     # Sorting the movies using the score in a descending order
     peliculas_similares = sorted(peliculas_similares, key=lambda x: x[1], reverse=True)

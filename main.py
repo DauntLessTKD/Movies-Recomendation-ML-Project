@@ -186,13 +186,15 @@ def recomendacion(titulo):
     # Finding the similarity between movies using combined characteristics
     similarity_scores = cosine_similarity(tfidf_matrix[index], tfidf_matrix)
 
-    # Finding the indexes of the more similar movies
-    similar_movies_indices = similarity_scores.argsort()[0][-5:][::-1]
 
-    similar_movies_indices = similar_movies_indices.pop(titulo)
+    # Finding the indexes of the more similar movies
+    similar_movies_indices = similarity_scores.argsort()[0][::-1]
+
+    # Filtering the movies to exclude the entered title
+    similar_movies_indices = similar_movies_indices[similar_movies_indices != index]
 
     # Finding the titles and vote_average of the most similar movies
-    peliculas_similares = df_origin.iloc[similar_movies_indices][['title', 'vote_average']].values.tolist()
+    peliculas_similares = df_origin.iloc[similar_movies_indices][:5][['title', 'vote_average']].values.tolist()
 
     # Sorting the movies using the score in a descending order
     peliculas_similares = sorted(peliculas_similares, key=lambda x: x[1], reverse=True)

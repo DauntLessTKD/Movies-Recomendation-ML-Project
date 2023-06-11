@@ -190,10 +190,6 @@ def recomendacion(titulo):
     # Sorting the movies using the score in a descending order
     peliculas_similares = sorted(peliculas_similares, key=lambda x: x[1], reverse=True)
 
-    # Setting movies in the returned list if needed
-    while len(peliculas_similares) < 5:
-        peliculas_similares.append(['Película adicional', 0])
-
     return peliculas_similares
 
 

@@ -13,7 +13,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 app = FastAPI()
 
 
-# Making the dataframe using and url of google drive
+# Making the dataframe using the url of google drive
 url = 'https://drive.google.com/file/d/1Px4Ufyb6m-o2E_4oefNyVjCrXvv2GiZQ/view?usp=sharing'
 url = 'https://drive.google.com/uc?id=' + url.split('/')[-2]
 
@@ -21,7 +21,7 @@ df_origin = pd.read_csv(url, dtype={'column_name': str}, low_memory=False)
 
 
 # Function 1: returning the amount of movies in a specific month
-@app.get("/cantidad/filmaciones/mes/{mes}")
+@app.get("/cantidad_filmaciones_mes/{mes}")
 async def cantidad_filmaciones_mes(mes: str):
 
     df_origin['release_date'] = pd.to_datetime(df_origin['release_date'])
@@ -44,11 +44,11 @@ async def cantidad_filmaciones_mes(mes: str):
         else:
             return {"Error": "El mes ingresado no es válido"}
 
-    return {"Mes": mes, "Cantidad de filmaciones en el mes": cantidad}
+    return {"mes": mes, "cantidad": cantidad}
 
 
 # Function 2: returning the amount of movies in a specific day
-@app.get("/cantidad/filmaciones/dia/{dia}")
+@app.get("/cantidad_filmaciones_dia/{dia}")
 async def cantidad_filmaciones_dia(dia: str):
     df_origin['release_date'] = pd.to_datetime(df_origin['release_date'])
 
@@ -69,24 +69,29 @@ async def cantidad_filmaciones_dia(dia: str):
 
     cantidad = df_origin[df_origin['release_date'].dt.day == dia_num].shape[0]
 
-    return {"Día": dia, "Cantidad de filmaciones en el día": cantidad}
+    return {"dia": dia, "cantidad": cantidad}
 
 
 # Function 3: returning the release year and popularity for the entered title
-@app.get("/score/titulo/{titulo}")
+@app.get("/score_titulo/{titulo}")
 async def score_titulo(titulo: str):
 
     titulo = titulo.lower()
     peliculas = df_origin[df_origin['title'].str.lower().str.contains(titulo)]
+
     if peliculas.empty:
         return {"Error": "Película no encontrada"}
+
     else:
-        return peliculas[['title', 'release_year', 'popularity']].to_dict('records')
+        resultado = {'titulo': peliculas['title'],
+                    'anio': peliculas['release_year'],
+                    'popularidad': peliculas['popularity']}
+        return resultado
 
 
 # Function 4: returning the Title, release year, vote count and vote average
 # for the entered title
-@app.get("/votos/titulo/{titulo}")
+@app.get("/votos_titulo/{titulo}")
 async def votos_titulo(titulo: str):
 
     titulo = titulo.lower()
@@ -102,16 +107,20 @@ async def votos_titulo(titulo: str):
             return {"Error": "La película  no tiene suficientes votos"}
 
         else:
-            return peliculas[['title', 'release_year', 'vote_count','vote_average']].to_dict('records')
+            resultado = {'titulo': peliculas['title'],
+                        'anio': peliculas['release_year'],
+                        'voto_total': peliculas['vote_count'],
+                        'voto_promedio': peliculas['vote_average']}
+        return resultado
 
 
 # Function 5: returning the name of the entered actor
 # his total return value , total amount of movies and return average
-@app.get("/get/actor/{actor}")
-async def get_actor(actor: str):
+@app.get("/get_actor/{nombre_actor}")
+async def get_actor(nombre_actor: str):
 
     # Asegúrate de que tu columna de actores esté en un formato que puedas filtrar por actor
-    peliculas_actor = df_origin[df_origin['cast'].str.contains(actor, na=False)]
+    peliculas_actor = df_origin[df_origin['cast'].str.contains(nombre_actor, na=False)]
 
     if peliculas_actor.empty:
         return {"Error": "Actor no encontrado"}
@@ -120,15 +129,15 @@ async def get_actor(actor: str):
         retorno_total = peliculas_actor['return'].sum()
         cantidad_peliculas = peliculas_actor.shape[0]
         retorno_promedio = retorno_total / cantidad_peliculas if cantidad_peliculas > 0 else 0
-        return {"Actor/Actress": actor,"Retorno total": retorno_total, "Cantidad de películas": cantidad_peliculas, "Retorno promedio": retorno_promedio}
+        return {"actor": nombre_actor, "cantidad_filmaciones": cantidad_peliculas,"retorno_total": retorno_total, "retorno_promedio": retorno_promedio}
 
 
 # Function 6: returning the name of the director
 # his total return value, with all of the movies that work in
-@app.get("/get/director/{director}")
-async def get_director(director: str):
+@app.get("/get_director/{nombre_director}")
+async def get_director(nombre_director: str):
 
-    peliculas_director = df_origin[df_origin['crew'].str.contains(director, na=False)]
+    peliculas_director = df_origin[df_origin['crew'].str.contains(nombre_director, na=False)]
 
     if peliculas_director.empty:
         return {"Error": "Director no encontrado"}
@@ -137,11 +146,11 @@ async def get_director(director: str):
         resultados = []
 
         for _, pelicula in peliculas_director.iterrows():
-            resultados.append({"Título": pelicula['title'],"Año de lanzamiento": str(pelicula['release_date'][:4]),
-                            "Retorno individual": pelicula['return'],"Presupuesto de la pelicula": pelicula['budget'],"Ganancia": pelicula['revenue']})
+            resultados.append({"titulo": pelicula['title'],"anio": str(pelicula['release_date'][:4]),
+                            "retorno_pelicula": pelicula['return'],"budget_pelicula": pelicula['budget'],"revenue_pelicula": pelicula['revenue']})
 
         retorno_total = peliculas_director['return'].sum()
-        return {"Retorno total": retorno_total,"Películas": resultados}
+        return {"director":nombre_director ,"retorno_total_director": retorno_total,"peliculas": resultados}
 
 
 # Filling all the empty values in the column genres
@@ -198,9 +207,9 @@ async def obtener_recomendacion(titulo: str):
         return {"Error": "Película no encontrada"}
 
     else:
-        return {"Recomendaciones": recomendaciones}
+        return {"lista_recomendada": recomendaciones}
 
 
-# Needed for reloading the API response live time
+# Needed for reloading the API response in live time
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

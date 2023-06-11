@@ -28,8 +28,7 @@ Next to this i will put all the URL for the functions:
 
 
 
-Quantity of movies per month:  
-URL/cantidad/filmaciones/mes/
+Quantity of movies per month:  URL/cantidad/filmaciones/mes/
 
 Quantity of movies per month:
 URL/cantidad/filmaciones/dia/

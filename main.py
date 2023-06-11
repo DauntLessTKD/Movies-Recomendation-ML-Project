@@ -137,7 +137,7 @@ async def get_actor(nombre_actor: str):
 @app.get("/get_director/{nombre_director}")
 async def get_director(nombre_director: str):
 
-    peliculas_director = df_origin[df_origin['crew'].str.contains(nombre_director, na=False)]
+    peliculas_director = df_origin[df_origin['crew'].str.lower().str.contains(nombre_director, na=False)]
 
     if peliculas_director.empty:
         return {"Error": "Director no encontrado"}

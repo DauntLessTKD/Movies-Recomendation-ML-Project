@@ -77,7 +77,7 @@ async def cantidad_filmaciones_dia(dia: str):
 async def score_titulo(titulo: str):
 
     titulo = titulo.lower()
-    peliculas = df_origin[df_origin['title'].str.lower().str.contains(titulo)]
+    peliculas = df_origin[df_origin['title'].str.lower() == titulo]
 
     if peliculas.empty:
         return {"Error": "Película no encontrada"}

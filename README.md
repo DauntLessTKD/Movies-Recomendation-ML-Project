@@ -1,6 +1,6 @@
 **Movies Recomendation ML Project**
 
-![Project Image](https://drive.google.com/file/d/15blZUvD6CSNnPQj3j2tJcchF7j3JMJx0)
+![Project Image](https://drive.google.com/uc?export=view&id=1QevQxddgpiGKbvzcB-G6T4H-e0ZJao7i)
 
  *Recomendation ML* The user will have to provide a movie that he watched, and our ML model will recomend him a list of movies
  that are similar to the user given movie, just like netflix or youtube, this model can recomend similar content to the user

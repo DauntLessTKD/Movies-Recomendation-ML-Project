@@ -59,7 +59,7 @@ async def cantidad_filmaciones_dia(dia: str):
     else:
         # Transforming the day name into lowercase and checking wich day is
         dia = dia.lower()
-        dias_nombres = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo']
+        dias_nombres = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
 
         if dia in dias_nombres:
             dia_num = dias_nombres.index(dia) + 1

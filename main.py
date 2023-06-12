@@ -109,10 +109,10 @@ async def votos_titulo(titulo: str):
             return {"Error": "La película  no tiene suficientes votos"}
 
         else:
-            resultado = {'titulo': peliculas['title'],
-                        'anio': peliculas['release_year'],
-                        'voto_total': peliculas['vote_count'],
-                        'voto_promedio': peliculas['vote_average']}
+            resultado = {'titulo': pelicula['title'],
+                        'anio': pelicula['release_year'],
+                        'voto_total': pelicula['vote_count'],
+                        'voto_promedio': pelicula['vote_average']}
         return resultado
 
 

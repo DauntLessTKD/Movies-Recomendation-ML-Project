@@ -8,24 +8,24 @@
 
 ## 📋 Table of Contents
 
-1. [Extract , Transform and Load, ETL Process](#ETL)
-2. [Exploratory Data Analysis](#EDA)
-3. [Recommendation Model](#MLModel)
+1. [Extract , Transform and Load, ETL Process](#etl)
+2. [Exploratory Data Analysis](#eda)
+3. [Recommendation Model](#mlmodel)
 4. [Manual of ussage](#use)
-5. [DOCS Endpoints](#DOCSendpoint)
-6. [Libraries](#Libraries)
+5. [DOCS Endpoints](#docsendpoint)
+6. [Libraries](#libraries)
 7. [License](#license)
 
-## 🧹 1. Extract , Transform and Load, ETL Process <a name="ETL"></a>
+## 🧹 1. Extract , Transform and Load, ETL Process <a name="etl"></a>
 
 The first to be done in this project, was this process, the csv files , it has to be extracted into a dataframe, cleaned, transformed
 and finally load them into another final csv [See ETL](PI_1_ETL.ipynb)
 
-## 📊 2. Exploratory Data Analysis, EDA Process <a name="EDA"></a>
+## 📊 2. Exploratory Data Analysis, EDA Process <a name="eda"></a>
 
 After making the ETL process, we see the data in a more detailed way using graphics, to be able making the API  [See EDA](PI_1_EDA.ipynb)
 
-## 🎯 3. Recommendation Model <a name="MLModel"></a>
+## 🎯 3. Recommendation Model <a name="mlmodel"></a>
 
 Using the ETL and EDA process for be able, to create the functions and the ML recomendation model in an optimal way
 doing the use of libraries like TF IDF, Cosine-similarity, to be able getting similar movies like the input one [See API-ML](main.py)
@@ -37,14 +37,14 @@ execute , after that click on the buttom "try it out", then put your input in th
 
 If you go directly to a functions endpoint, you will have to put your input before the URL like this:
 endpoint URL/"user input"
-## 📚 5. DOCS Endpoints <a name="DOCSendpoint"></a>
+## 📚 5. DOCS Endpoints <a name="docsendpoint"></a>
 
 The *Recomendation ML Project* API offers various endpoints that provide unique functionalities for movie data exploration and recommendation generation. Here we describe each of them:
 
 [`documentation`](https://pi-1-rodrigo-escalona.onrender.com/docs): In this URL , you can enter the API documentation, where are all
 of the functions in an visual way, that ables the user to interact with the 6 functions that are available and the machine learning model
 
-## ⚙️ 6. Libraries <a name="Libraries"></a>
+## ⚙️ 6. Libraries <a name="libraries"></a>
 
 This are the needed libraries and frameworks that allows this project to work correctly.
 

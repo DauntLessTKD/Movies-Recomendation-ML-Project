@@ -157,7 +157,7 @@ async def get_director(nombre_director: str):
                             "revenue_pelicula": str(pelicula['revenue'])})
 
         retorno_total = peliculas_director['return'].sum()
-        return {"director":nombre_director ,"retorno_total_director": str(retorno_total),"peliculas": resultados}
+        return {"director":nombre_director ,"retorno_total_director": str(retorno_total),"peliculas": str(resultados)}
 
 
 # Filling all the empty values in the column genres

@@ -152,11 +152,12 @@ async def get_director(nombre_director: str):
         resultados = []
 
         for _, pelicula in peliculas_director.iterrows():
-            resultados.append({"titulo": pelicula['title'],"anio": str(pelicula['release_date'][:4]),
-                            "retorno_pelicula": pelicula['return'],"budget_pelicula": pelicula['budget'],"revenue_pelicula": pelicula['revenue']})
+            resultados.append({"titulo": str(pelicula['title']),"anio": str(pelicula['release_date'][:4]),
+                            "retorno_pelicula": str(pelicula['return']),"budget_pelicula": str(pelicula['budget']),
+                            "revenue_pelicula": str(pelicula['revenue'])})
 
         retorno_total = peliculas_director['return'].sum()
-        return {"director":nombre_director ,"retorno_total_director": retorno_total,"peliculas": resultados}
+        return {"director":nombre_director ,"retorno_total_director": str(retorno_total),"peliculas": resultados}
 
 
 # Filling all the empty values in the column genres
